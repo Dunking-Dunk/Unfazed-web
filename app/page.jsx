@@ -1,11 +1,14 @@
 'use client'
 
+import localFont from 'next/font/local'
 import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
 
-const Logo = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Logo), { ssr: false })
-const Dog = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Dog), { ssr: false })
-const Duck = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Duck), { ssr: false })
+
+const mono = localFont({ src: './manolo-mono.woff2', variable: '--font-mano', })
+const Hero = dynamic(() => import('@/components/canvas/Hero'))
+const HeroTitle = dynamic(() => import('@/components/dom/HeroTitle'))
+
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
   loading: () => (
@@ -26,10 +29,17 @@ const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mo
 export default function Page() {
   return (
     <>
-      <div className='h-screen'>
-
+      <div className='relative h-screen w-full flex items-center justify-start'>
+        <div className='z-10 ml-48'>
+          <HeroTitle />
+        </div>
+        <View className='w-full h-full absolute '>
+          <Suspense fallback={null}>
+            <Common />
+            <Hero />
+          </Suspense>
+        </View>
       </div>
-
     </>
   )
 }

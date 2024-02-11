@@ -7,6 +7,21 @@
     box-sizing: border-box;
   }
 
+  :root {
+    --primary-color: #24FF00;
+    --black-color: #000000;
+    --white-color: #ffffff
+  }
+
+  .font-outline-2 {
+    -webkit-text-stroke: 2px var(--primary-color);
+  }
+
+  .font-outline-4 {
+    -webkit-text-stroke: 4px var(--pri)
+  }
+
+
   html,
   body,
   #root {
@@ -15,5 +30,10 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
+    --font-mono: manolo-mono
   }
+}
+
+body {
+  background-color: #000000;
 }
