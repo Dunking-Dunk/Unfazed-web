@@ -146,7 +146,7 @@ vec3 render(in vec3 ro,in vec3 rd,in vec2 uv){
     col=vec3(grid(opos.xy+.5,n,w)+grid(opos.yz+.5,n,w));
     col=clamp(pow(col*2.,vec3(1.4)),0.,1.);
     if(IS_GLITCH){
-      col*=vec3(0.,3.*noise(floor(glitch(opos))),0.);
+      col*=vec3(0.,noise(3.*floor(glitch(opos))),0.);
     }
   }
   return col;
@@ -155,7 +155,7 @@ vec3 render(in vec3 ro,in vec3 rd,in vec2 uv){
 void main(){
   vec2 uv=vUv;
   vec2 p=(gl_FragCoord.xy*2.-iResolution.xy)/min(iResolution.x,iResolution.y);
-  vec3 col=vec3(0.);
+  vec3 col=vec3(.5333,1.,0.);
   
   vec3 ro=vec3(0.,-.2*ft,4.-2.*ft);
   if(hash(fract(it*432.543))<.5){
@@ -168,7 +168,7 @@ void main(){
   vec3 cz=normalize(ta-ro);
   vec3 cx=normalize(cross(cz,vec3(sin(cr),cos(cr),0.)));
   vec3 cy=normalize(cross(cx,cz));
-  vec3 rd=normalize(mat3(cx,cy,cz)*vec3(p,2.));
+  vec3 rd=normalize(mat3(cx,cy,cz)*vec3(p,1.2));
   
   col=render(ro,rd,rd.xy);
   col*=smoothstep(0.,.2,1.-abs(ft*2.-1.));

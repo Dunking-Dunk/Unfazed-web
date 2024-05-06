@@ -18,7 +18,7 @@
   }
 
   .font-outline-4 {
-    -webkit-text-stroke: 4px var(--pri)
+    -webkit-text-stroke: 4px var(--primary-color)
   }
 
 
@@ -30,7 +30,8 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
-    --font-mono: manolo-mono
+    --font-mono: manolo-mono;
+    color: var(--white-color)
   }
 }
 
