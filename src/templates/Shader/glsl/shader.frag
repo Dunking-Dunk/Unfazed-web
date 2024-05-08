@@ -157,18 +157,18 @@ void main(){
   vec2 p=(gl_FragCoord.xy*2.-iResolution.xy)/min(iResolution.x,iResolution.y);
   vec3 col=vec3(.5333,1.,0.);
   
-  vec3 ro=vec3(0.,-.2*ft,4.-2.*ft);
+  vec3 ro=vec3(0.,-1.*ft,4.-2.*ft);
   if(hash(fract(it*432.543))<.5){
     ro.x+=hash(it*12.9898)*2.-1.;
     ro.y+=hash(it*78.233)*2.-1.;
   }
-  vec3 ta=vec3(-1.,-.1,-.5);
+  vec3 ta=vec3(-2.,-.1,-.3);
   
   float cr=0.;
   vec3 cz=normalize(ta-ro);
   vec3 cx=normalize(cross(cz,vec3(sin(cr),cos(cr),0.)));
   vec3 cy=normalize(cross(cx,cz));
-  vec3 rd=normalize(mat3(cx,cy,cz)*vec3(p,1.2));
+  vec3 rd=normalize(mat3(cx,cy,cz)*vec3(p,2));
   
   col=render(ro,rd,rd.xy);
   col*=smoothstep(0.,.2,1.-abs(ft*2.-1.));
