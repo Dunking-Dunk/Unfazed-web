@@ -23,7 +23,7 @@ const Header = () => {
                 setOpen((state) => !state)
             }}>
                 <span className={`w-full rounded-md h-0.5 transition-transform ease-out duration-400 bg-white ${open && 'rotate-45 translate-y-0.5'}`} />
-                <span className={`w-full rounded-md h-0.5 transition-all ease-out duration-600 bg-white ${open && 'w-0'}`} />
+                <span className={`rounded-md h-0.5 transition-all ease-out duration-600 bg-white ${open ? 'w-0' : 'w-full'}`} />
                 <span className={`w-full rounded-md h-0.5 transition-transform ease-out duration-400 bg-white ${open && '-rotate-45 -translate-y-0.5'}`} />
             </div>
         </div>

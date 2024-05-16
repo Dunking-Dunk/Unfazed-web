@@ -32,6 +32,7 @@ export default function Scroll({ children }) {
       gestureDirection: 'vertical', // vertical, horizontal, both
       smooth: true,
       smoothTouch: false,
+      syncTouch: true,
       touchMultiplier: 2,
       infinite: false,
     })
