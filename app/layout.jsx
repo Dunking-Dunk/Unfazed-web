@@ -3,8 +3,8 @@ import '@/global.css'
 import { Montserrat } from 'next/font/google'
 
 export const metadata = {
-  title: 'Next.js + Three.js',
-  description: 'A minimal starter for Nextjs + React-three-fiber and Threejs.',
+  title: 'Unfazed',
+  description: 'Creative Agency',
 }
 
 const montserrat = Montserrat({

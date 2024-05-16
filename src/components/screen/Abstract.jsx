@@ -1,12 +1,19 @@
 "use client"
 
-
 import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
-import HeroTitle from './HeroTitle'
+import Image from 'next/image'
+import Confinment from '../../../public/img/abstract/confine.svg'
+import Yourself from '../../../public/img/abstract/yourselfto.svg'
+import CoolGlass from '../../../public/img/abstract/coolglass.svg'
+import Present from '../../../public/img/abstract/present.svg'
 
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
-const HeroCanvas = dynamic(() => import('@/components/canvas/Hero'))
+
+const MarcusCanvas = dynamic(() => import('@/components/canvas/Marcus'), {
+    ssr: false
+})
+
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
     ssr: false,
     loading: () => (
@@ -23,22 +30,20 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
     ),
 })
 
-const Hero = () => {
+const Abstract = () => {
     return (
-        <div className="w-full h-screen relative bg-black">
+        <div className="h-screen w-full relative">
+            <Image src={Confinment} className='absolute md:left-[40%] left-8 top-12 z-10 lg:w-fit w-5/6 ' />
+            <Image src={Yourself} className='absolute md:left-[20%] left-12 top-72 z-10 lg:w-fit w-5/6 ' />
+            <Image src={Present} className='absolute md:left-[15%] left-4 top-[70%]  z-10 lg:w-fit w-5/6' />
             <View className='w-full h-full absolute'>
                 <Suspense fallback={null}>
                     <Common />
-                    <HeroCanvas />
+                    <MarcusCanvas />
                 </Suspense>
             </View>
-            <div className='w-full h-full flex flex-col justify-center absolute px-32 gap-10 z-10 bg-[rgba(0,0,0,0.3)]'>
-                <HeroTitle />
-                <p className='text-white text-2xl w-2/4'>Empowering digital realms with unwavering resolve and limitless innovation</p>
-            </div>
-
         </div>
     )
 }
 
-export default Hero
+export default Abstract

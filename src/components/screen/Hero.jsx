@@ -1,23 +1,19 @@
 "use client"
 
+
 import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
-import Image from 'next/image'
-import Confinment from '../../../public/img/abstract/confine.svg'
-import Yourself from '../../../public/img/abstract/yourselfto.svg'
-import CoolGlass from '../../../public/img/abstract/coolglass.svg'
+import HeroTitle from '../dom/HeroTitle'
 
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
-
-const MarcusCanvas = dynamic(() => import('@/components/canvas/Marcus'), {
+const HeroCanvas = dynamic(() => import('@/components/canvas/Hero'), {
     ssr: false
 })
-
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
     ssr: false,
     loading: () => (
-        <div className='flex h-96 w-full flex-col items-center justify-center absolute'>
-            <svg className='-ml-1 mr-3 h-5 w-5 animate-spin text-black' fill='none' viewBox='0 0 24 24'>
+        <div className='flex h-full w-full flex-col items-center justify-center absolute'>
+            <svg className='-ml-1 mr-3 h-5 w-5 animate-spin text-white' fill='none' viewBox='0 0 24 24'>
                 <circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='4' />
                 <path
                     className='opacity-75'
@@ -29,20 +25,21 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
     ),
 })
 
-const Abstract = () => {
+const Hero = () => {
     return (
-        <div className="h-screen w-full relative">
-            <Image src={Confinment} className='absolute left-[20%] top-12 z-10 ' />
-            <Image src={Yourself} className='absolute left-[20%] top-40 z-10 ' />
-            {/* <Image src={CoolGlass} className='absolute left-[40%] top-14 z-10 ' /> */}
+        <div className="w-full h-screen relative z-10">
+            <div className='w-full h-full flex flex-col justify-center items-start absolute lg:px-32 px-4 gap-10  bg-[rgba(0,0,0,0.3)]'>
+                <HeroTitle />
+                <p className='text-white lg:text-2xl text-lg lg:w-2/4'>Empowering digital realms with unwavering resolve and limitless innovation</p>
+            </div>
             <View className='w-full h-full absolute z-0'>
                 <Suspense fallback={null}>
                     <Common />
-                    <MarcusCanvas />
+                    <HeroCanvas />
                 </Suspense>
             </View>
         </div>
     )
 }
 
-export default Abstract
+export default Hero

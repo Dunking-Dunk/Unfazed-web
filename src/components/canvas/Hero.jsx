@@ -1,13 +1,14 @@
 "use client"
 
 import { useRef } from "react"
-import { shaderMaterial } from "@react-three/drei"
-import { extend, useFrame } from '@react-three/fiber'
+import { shaderMaterial, } from "@react-three/drei"
+import { extend, useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import fragmentShader from '../../templates/Shader/glsl/shader.frag'
 
 const Hero = ({ props }) => {
     const materialRef = useRef()
+    const { viewport } = useThree();
 
     const ColorShiftMaterial = new shaderMaterial(
         {
@@ -34,9 +35,10 @@ const Hero = ({ props }) => {
 
 
     return (
-        <mesh position={[0, 0, -1]}
+        <mesh
+
             {...props}>
-            <planeGeometry args={[10, 8]} />
+            <planeGeometry args={[viewport.width, viewport.height]} />
             <colorShiftMaterial ref={materialRef} />
         </mesh>
 
