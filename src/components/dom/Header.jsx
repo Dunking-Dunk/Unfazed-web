@@ -20,9 +20,9 @@ const Header = () => {
                 <Image src={unfazedLogo} alt='unfazed logo' className='lg:relative w-56 ' />
             </div>
             <div className={`flex lg:flex-row lg:items-center justify-evenly lg:w-1/3 lg:h-full text-sm  max-lg:fixed  flex-col h-screen w-full left-0 top-0 ${open ? 'top-0' : 'top-[-150%]'} lg:text-sm text-6xl lg:bg-transparent  z-50 md:p-20 p-10 lg:p-0 transition-all ease-out duration-200 backdrop-blur-lg`} ref={navbarRef}>
-                <Link href='#about'>About</Link>
-                <Link href='#about'>Service</Link>
-                <Link href='#about'>Contact</Link>
+                <Link href='about' className='cursorOver'>About</Link>
+                <Link href='#about' className='cursorOver'>Service</Link>
+                <Link href='#about' className='cursorOver'>Contact</Link>
             </div>
             <div className={`lg:hidden flex flex-col ${open ? 'justify-center items-center' : 'justify-between'} w-6 h-5 cursor-pointer right-14 z-50 `} onClick={handleOpen}>
                 <span className={`w-full rounded-md h-0.5 transition-transform ease-out duration-400 bg-white ${open && 'rotate-45 translate-y-0.5'}`} />

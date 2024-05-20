@@ -3,175 +3,100 @@ uniform vec3 color;
 uniform vec3 iResolution;
 varying vec2 vUv;
 
-#define IS_GLITCH noise(time*12.)<.6
-#define tt time*.1
-#define ft fract(tt)
-#define it floor(tt)
-
-const float PI=3.14159265359;
-const float TWO_PI=6.28318530718;
-
-mat2 rotate(in float r){float c=cos(r),s=sin(r);return mat2(c,-s,s,c);}
-vec2 rotate(in vec2 p,in float r){return rotate(r)*p;}
-vec3 rotate(in vec3 p,in vec3 r){
-  p.xy=rotate(p.xy,r.z);
-  p.yz=rotate(p.yz,r.x);
-  p.zx=rotate(p.zx,r.y);
-  return p;
-}
-
-float hash(in float v){return fract(sin(v)*43758.5453);}
-float hash(in vec2 v){return fract(sin(dot(v,vec2(12.9898,78.233)))*43758.5453);}
-float noise(in float v){float f=fract(v),i=floor(v),u=f*f*(3.-2.*f);return mix(hash(i),hash(i+1.),u);}
-float noise(in vec2 v){
-  vec2 f=fract(v),i=floor(v),u=f*f*(3.-2.*f);
-  return mix(
-    mix(hash(i+vec2(0.,0.)),hash(i+vec2(1.,0.)),u.x),
-    mix(hash(i+vec2(0.,1.)),hash(i+vec2(1.,1.)),u.x),
-    u.y
-  );
-}
-float noise(in vec3 v){
-  vec3 f=fract(v),i=floor(v),u=f*f*(3.-2.*f);
-  float n=i.x+i.y*53.+i.z*117.;
-  return mix(
-    mix(mix(hash(n+0.),hash(n+1.),u.x),mix(hash(n+53.),hash(n+54.),u.x),u.y),
-    mix(mix(hash(n+117.),hash(n+118.),u.x),mix(hash(n+170.),hash(n+171.),u.x),u.y),
-    u.z
-  );
-}
-
-vec3 random3(vec3 c){
-  float j=4096.*sin(dot(c,vec3(17.,59.4,15.)));
-  vec3 r;
-  r.z=fract(512.*j);
-  j*=.125;
-  r.x=fract(512.*j);
-  j*=.125;
-  r.y=fract(512.*j);
-  return r-.5;
-}
-
-vec3 glitch(in vec3 p,in float seed){
-  float hs=hash(seed);
-  vec3 q=p;
-  for(int i=0;i<4;i++){
-    float fi=float(i)+1.;
-    q=p*2.*fi;
-    vec3 iq=floor(q);
-    vec3 fq=fract(q);
-    float n=noise(rotate(iq,vec3(hs)));
-    vec3 offset=3.*random3(vec3(n)*vec3(10.486,78.233,65.912));
-    if(hash(n)<.1){
-      p=p+offset;
-      break;
-    }
-  }
-  return p;
-}
-vec3 glitch(in vec3 p){return glitch(p,43768.5453);}
-
-float grid(in vec2 uv,in float n,in float w){
-  uv=fract(uv*n);
-  uv=abs(uv-.5);
-  return 1.-smoothstep(-.5*w,.5*w,min(uv.x,uv.y));
-}
-
-float box(in vec3 p,in vec3 b){vec3 d=abs(p)-b;return length(max(d,0.))+min(max(d.x,max(d.y,d.z)),0.);}
-float box(in vec3 p,in float b){return box(p,vec3(b));}
-
-vec2 minD(in vec2 d1,in vec2 d2){return d1.x<d2.x?d1:d2;}
-
-vec3 transform(in vec3 p){
-  p=rotate(p,vec3(.25*PI,.25*PI,0.));
-  return p;
-}
-
-#define repeat(p,c)mod(p,c)-.5*c
-
-vec2 map(in vec3 p){
-  vec2 d=vec2(1e4,-1.);
-  
-  vec3 q1=transform(p);
-  float tn=10.*hash(floor(time*2.)/2.);
-  float qs=floor(time*tn)/tn;
-  vec3 q2=glitch(q1.xyz,qs);
-  
-  float r=.5;
-  vec2 b=IS_GLITCH?
-  vec2(box(q2,r),2.):vec2(box(q1,r),1.);
-  d=minD(d,b);
-  
-  return d;
-}
-
-vec2 trace(in vec3 ro,in vec3 rd,in vec2 tmm){
-  float t=tmm.x;
-  float m=-1.;
-  for(int i=0;i<200;i++){
-    vec2 d=map(ro+rd*t);
-    if(d.x<1e-4||tmm.y<t)break;
-    t+=d.x*.5;
-    m=d.y;
-  }
-  if(tmm.y<t)m=-1.;
-  return vec2(t,m);
-}
-
-vec3 calcNormal(in vec3 p){
-  vec2 e=vec2(1.,-1.)*1e-4;
-  return normalize(
-    e.xyy*map(p+e.xyy).x+
-    e.yxy*map(p+e.yxy).x+
-    e.yyx*map(p+e.yyx).x+
-    e.xxx*map(p+e.xxx).x
-  );
-}
-
-vec3 render(in vec3 ro,in vec3 rd,in vec2 uv){
-  vec3 col=vec3(0.);
-  vec2 cmm=vec2(0.,30.);
-  vec2 res=trace(ro,rd,cmm);
-  float t=res.x,m=res.y;
-  if(m<0.){
-    col=vec3(0.);
+float colormap_red(float x){
+  if(x<0.){
+    return 54./255.;
+  }else if(x<20049./82979.){
+    return(829.79*x+54.51)/255.;
   }else{
-    vec3 pos=ro+rd*t;
-    vec3 nor=calcNormal(pos);
-    vec3 ref=reflect(rd,nor);
-    vec3 opos=transform(pos);
-    
-    float w=.2;
-    float n=10.;
-    col=vec3(grid(opos.xy+.5,n,w)+grid(opos.yz+.5,n,w));
-    col=clamp(pow(col*2.,vec3(1.4)),0.,1.);
-    if(IS_GLITCH){
-      col*=vec3(0.,noise(floor(glitch(opos))),0.);
-    }
+    return 1.;
   }
-  return col;
 }
 
-void main(){
-  vec2 uv=vUv;
-  vec2 p=(gl_FragCoord.xy*1.-iResolution.xy)/min(iResolution.x,iResolution.y);
-  vec3 col=vec3(.5333,1.,0.);
-  
-  vec3 ro=vec3(0.,-.1*ft,4.-2.*ft);
-  if(hash(fract(it*432.543))<.5){
-    ro.x+=hash(it*12.9898)*2.-1.;
-    ro.y+=hash(it*78.233)*2.-1.;
+float colormap_green(float x){
+  if(x<20049./82979.){
+    return 0.;
+  }else if(x<327013./810990.){
+    return(8546482679670./10875673217.*x-2064961390770./10875673217.)/255.;
+  }else if(x<=1.){
+    return(103806720./483977.*x+19607415./483977.)/255.;
+  }else{
+    return 1.;
   }
-  vec3 ta=vec3(12.,12.,-10.);
-  
-  float cr=0.;
-  vec3 cz=normalize(ta-ro);
-  vec3 cx=normalize(cross(cz,vec3(sin(cr),cos(cr),0.)));
-  vec3 cy=normalize(cross(cx,cz));
-  vec3 rd=normalize(mat3(cx,cy,cz)*vec3(p,1.));
-  
-  col=render(ro,rd,rd.xy);
-  col*=smoothstep(0.,.2,1.-abs(ft*2.-1.));
-  
-  gl_FragColor.rgba=vec4(col,1.);
 }
+
+float colormap_blue(float x){
+  if(x<0.){
+    return 54./255.;
+  }else if(x<7249./82979.){
+    return(829.79*x+54.51)/255.;
+  }else if(x<20049./82979.){
+    return 127./255.;
+  }else if(x<327013./810990.){
+    return(792.02249341361393720147485376583*x-64.364790735602331034989206222672)/255.;
+  }else{
+    return 1.;
+  }
+}
+
+vec4 colormap(float x){
+  return vec4(colormap_red(x)*0.,colormap_green(x),colormap_blue(x)*0.,1.);
+}
+
+// https://iquilezles.org/articles/warp
+/*float noise( in vec2 x )
+{
+  vec2 p = floor(x);
+  vec2 f = fract(x);
+  f = f*f*(3.0-2.0*f);
+  float a = textureLod(iChannel0,(p+vec2(0.5,0.5))/256.0,0.0).x;
+  float b = textureLod(iChannel0,(p+vec2(1.5,0.5))/256.0,0.0).x;
+  float c = textureLod(iChannel0,(p+vec2(0.5,1.5))/256.0,0.0).x;
+  float d = textureLod(iChannel0,(p+vec2(1.5,1.5))/256.0,0.0).x;
+  return mix(mix( a, b,f.x), mix( c, d,f.x),f.y);
+}*/
+
+float rand(vec2 n){
+  return fract(sin(dot(n,vec2(12.9898,4.1414)))*43758.5453);
+}
+
+float noise(vec2 p){
+  vec2 ip=floor(p);
+  vec2 u=fract(p);
+  u=u*u*(3.-2.*u);
+  
+  float res=mix(
+    mix(rand(ip),rand(ip+vec2(1.,0.)),u.x),
+    mix(rand(ip+vec2(0.,1.)),rand(ip+vec2(1.,1.)),u.x),u.y);
+    return res*res;
+  }
+  
+  const mat2 mtx=mat2(.80,.60,-.60,.80);
+  
+  float fbm(vec2 p)
+  {
+    float f=0.;
+    
+    f+=.500000*noise(p+time*.5);p=mtx*p*2.02;
+    f+=.031250*noise(p);p=mtx*p*2.01;
+    f+=.250000*noise(p);p=mtx*p*2.03;
+    f+=.125000*noise(p);p=mtx*p*2.01;
+    f+=.062500*noise(p);p=mtx*p*2.04;
+    f+=.015625*noise(p+sin(time*.2));
+    
+    return f/1.4;
+  }
+  
+  float pattern(in vec2 p)
+  {
+    return fbm(p+fbm(p+fbm(p)));
+  }
+  
+  void main()
+  {
+    vec2 uv=vUv;
+    float shade=pattern(uv);
+    gl_FragColor=vec4(colormap(shade).rgb,shade);
+  }
+  
+  

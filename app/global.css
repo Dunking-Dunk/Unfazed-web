@@ -33,9 +33,15 @@
     --font-mono: manolo-mono;
     color: var(--white-color);
     scroll-behavior: smooth;
+    cursor: none;
   }
 }
 
 body {
   background-color: #000000;
+}
+
+
+a {
+  cursor: none;
 }

@@ -5,8 +5,8 @@ import { Suspense } from 'react'
 import Image from 'next/image'
 import Confinment from '../../../public/img/abstract/confine.svg'
 import Yourself from '../../../public/img/abstract/yourselfto.svg'
-import CoolGlass from '../../../public/img/abstract/coolglass.svg'
 import Present from '../../../public/img/abstract/present.svg'
+import Marque from '../dom/Marque'
 
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
 
@@ -33,9 +33,10 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
 const Abstract = () => {
     return (
         <div className="h-screen w-full relative">
-            <Image src={Confinment} className='absolute md:left-[40%] left-8 top-12 z-10 lg:w-fit w-5/6 ' />
-            <Image src={Yourself} className='absolute md:left-[20%] left-12 top-72 z-10 lg:w-fit w-5/6 ' />
-            <Image src={Present} className='absolute md:left-[15%] left-4 top-[70%]  z-10 lg:w-fit w-5/6' />
+            <Marque />
+            <Image src={Confinment} className='absolute md:left-[40%] left-8 top-12 z-10 lg:w-fit w-5/6 ' alt='background abstract' />
+            <Image src={Yourself} className='absolute md:left-[20%] left-12 top-72 z-10 lg:w-fit w-5/6 ' alt='background abstract' />
+            <Image src={Present} className='absolute md:left-[15%] left-4 top-[70%]  z-10 lg:w-fit w-5/6' alt='background abstract' />
             <View className='w-full h-full absolute'>
                 <Suspense fallback={null}>
                     <Common />

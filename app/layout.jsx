@@ -2,6 +2,8 @@ import { Layout } from '@/components/dom/Layout'
 import '@/global.css'
 import { Montserrat } from 'next/font/google'
 
+import '@/helpers/gsap.js'
+
 export const metadata = {
   title: 'Unfazed',
   description: 'Creative Agency',
@@ -20,7 +22,7 @@ export default function RootLayout({ children }) {
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body>
+      <body className='antialiased'>
         {/* To avoid FOUT with styled-components wrap Layout with StyledComponentsRegistry https://beta.nextjs.org/docs/styling/css-in-js#styled-components */}
         <Layout>{children}</Layout>
       </body>

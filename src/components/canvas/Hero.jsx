@@ -8,6 +8,7 @@ import fragmentShader from '../../templates/Shader/glsl/shader.frag'
 
 const Hero = ({ props }) => {
     const materialRef = useRef()
+    const geoRef = useRef()
     const { viewport } = useThree();
 
     const ColorShiftMaterial = new shaderMaterial(
@@ -31,17 +32,17 @@ const Hero = ({ props }) => {
         materialRef.current.uniforms.time.value = state.clock.getElapsedTime()
     })
 
+
+
     extend({ ColorShiftMaterial })
 
 
     return (
         <mesh
-
-            {...props}>
-            <planeGeometry args={[viewport.width, viewport.height]} />
+            {...props} position={[0, 0, -1]}>
+            <planeGeometry args={[viewport.width * 1.5, viewport.height * 1.5]} ref={geoRef} />
             <colorShiftMaterial ref={materialRef} />
         </mesh>
-
     )
 }
 

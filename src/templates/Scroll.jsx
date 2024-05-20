@@ -31,10 +31,10 @@ export default function Scroll({ children }) {
       direction: 'vertical', // vertical, horizontal
       gestureDirection: 'vertical', // vertical, horizontal, both
       smooth: true,
-      smoothTouch: false,
+      smoothTouch: true,
       syncTouch: true,
-      touchMultiplier: 2,
-      infinite: false,
+      touchMultiplier: 1,
+      infinite: false
     })
 
     lenis.on('scroll', ({ scroll, progress }) => {
