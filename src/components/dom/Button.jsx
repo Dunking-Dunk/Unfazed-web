@@ -35,7 +35,7 @@ const Button = ({ children, size = 12, onClick, Icon = () => <FaArrowRight size=
     }, [])
 
     return (
-        <button style={{ fontSize: size }} onClick={onClick} className={`${cln} cursorOver border-[2px] py-4 px-10 rounded-3xl  flex flex-row items-center justify-center gap-6 `} ref={btnRef}>
+        <button style={{ fontSize: size }} onClick={onClick} className={`${cln} cursorOver border-[2px] py-4 px-10 rounded-3xl  flex flex-row items-center justify-center gap-6 cursor-none`} ref={btnRef}>
             {children}
             {Icon && <Icon />}
         </button>

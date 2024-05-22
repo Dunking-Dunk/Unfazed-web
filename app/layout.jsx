@@ -3,6 +3,8 @@ import '@/global.css'
 import { Montserrat } from 'next/font/google'
 
 import '@/helpers/gsap.js'
+import Cursor from '@/components/dom/Cursor'
+import Header from '@/components/dom/Header'
 
 export const metadata = {
   title: 'Unfazed',
@@ -23,6 +25,8 @@ export default function RootLayout({ children }) {
       */}
       <head />
       <body className='antialiased'>
+        <Cursor />
+        <Header />
         {/* To avoid FOUT with styled-components wrap Layout with StyledComponentsRegistry https://beta.nextjs.org/docs/styling/css-in-js#styled-components */}
         <Layout>{children}</Layout>
       </body>

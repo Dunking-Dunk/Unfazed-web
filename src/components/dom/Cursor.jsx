@@ -3,11 +3,13 @@
 import { useGSAP } from "@gsap/react"
 import { useRef } from "react"
 import gsap from "gsap"
+import { usePathname } from 'next/navigation'
 
 const Cursor = () => {
     const cursorRef = useRef()
     const cursorOuterRef = useRef()
     const textRef = useRef()
+    const pathname = usePathname()
 
     useGSAP((context, contextSafe) => {
         let cursOver = false
@@ -32,7 +34,7 @@ const Cursor = () => {
             gsap.to(cursorRef.current, {
                 width: '2.5rem',
                 height: '2.5rem',
-                opacity: 0.5
+                opacity: 0.7
             })
             cursOver = true
         })
@@ -53,7 +55,7 @@ const Cursor = () => {
             })
 
             gsap.to(cursorOuterRef.current, {
-                borderWidth: 0
+                borderWidth: '0px',
             })
 
             gsap.to(textRef.current, {
@@ -69,7 +71,7 @@ const Cursor = () => {
             })
 
             gsap.to(cursorOuterRef.current, {
-                borderWidth: 1
+                borderWidth: '1px',
             })
 
             gsap.to(textRef.current, {
@@ -96,7 +98,7 @@ const Cursor = () => {
             hoverMoreElements.forEach((ele) => ele.removeEventListener('mouseover', cursorOverMore))
             hoverMoreElements.forEach((ele) => ele.removeEventListener('mouseout', cursorOutMore))
         }
-    }, { dependencies: [] })
+    }, { dependencies: [pathname] })
 
     return (
         <div className={`fixed md:block hidden w-12 h-12 border-[var(--primary-color)] border-[1px] rounded-full z-[100] pointer-events-none cursorOuter`} ref={cursorOuterRef}>

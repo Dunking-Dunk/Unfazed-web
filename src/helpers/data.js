@@ -12,5 +12,12 @@ export const Works = [
         cover: 'aswinp/1.webp',
         description: "Portfolio website",
         category: ['Website Design', 'UI/UX', "Branding"]
+    }, 
+    {
+        id: 'ecommerce',
+        title: "APJ Ecommerce",
+        cover: 'ecommerce/1.webp',
+        description: 'Welcome to Stationary Haven, your go-to destination for office supplies! Powered by React for a sleek frontend and Express for a robust backend, our ecommerce platform offers an intuitive user interface, allowing you to effortlessly explore our extensive range of stationary items. From pens to desk organizers, find everything you need with ease. Our admin features empower you to manage inventory seamlessly while ensuring secure transactions. Enjoy hassle-free shopping, responsive design, and dedicated customer support. Experience convenience and quality at Stationary Haven today!',
+          category: ['Website Design', 'UI/UX', 'Software Solution']
     }
 ]

@@ -1,7 +1,5 @@
 import Image from 'next/image'
 
-import Cursor from '@/components/dom/Cursor'
-import Header from '@/components/dom/Header'
 import Hero from "@/components/screen/Hero"
 import About from '@/components/screen/About'
 import Abstract from '@/components/screen/Abstract'
@@ -18,8 +16,6 @@ export default function Page() {
     <div className=' h-full w-full relative'>
       <Image src={GreenWave} className='absolute w-full left-0 bottom-0 right-0 top-[15%] z-0' alt='background abstract' />
       <BackgroundCanva />
-      <Header />
-      <Cursor />
       <div className='z-10 relative'>
         <Hero />
         <About />
