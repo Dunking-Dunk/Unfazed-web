@@ -3,7 +3,7 @@ import Button from "../dom/Button"
 
 const Contact = () => {
     return (
-        <div className="lg:p-16 p-4 relative">
+        <div className="lg:p-16 p-4 relative z-10">
             <div className="flex lg:flex-row flex-col items-center justify-between border-b-2 border-[rgba(255,255,255,0.3)] pb-24 pt-16">
                 <div className="lg:space-y-14 space-y-6">
                     <h2 className="lg:text-9xl text-7xl font-medium">Let's Chat.</h2>
@@ -32,7 +32,7 @@ const Contact = () => {
                         <Link className='cursorOver' href={'/'}>Behance</Link>
                     </div>
                     <div className="space-y-2 underline text-xl">
-                        <p >hursunss@gmail.com</p>
+                        <p >studiounfazed@gmail.com</p>
                         <p >8056201341</p>
                     </div>
                 </div>

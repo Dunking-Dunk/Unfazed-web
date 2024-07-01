@@ -3,16 +3,21 @@ import { useRef } from "react"
 import { mono } from "@/helpers/font"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
+import { ScrollTrigger } from "gsap/all"
 
 const Marque = () => {
     const marRef = useRef()
 
     useGSAP(() => {
+
+
         gsap.to(marRef.current, {
-            left: '-200%',
-            repeat: -1,
-            duration: 20,
-            bottom: 0
+            scrollTrigger: {
+                trigger: marRef.current,
+                scroller: '#scroll-element',
+                scrub: 1,
+            },
+            left: '-100%',
         })
 
     }, [])

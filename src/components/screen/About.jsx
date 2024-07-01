@@ -16,7 +16,7 @@ const About = () => {
                 <div className='flex md:flex-row flex-col justify-between md:items-center gap-4'>
                     <h3 style={mono.style} className='md:text-6xl text-4xl text-[var(--primary-color)]'>About Us</h3>
                     <div className='flex flex-col space-y-1 underline text-lg'>
-                        <p >hursunss@gmail.com</p>
+                        <p >studiounfazed@gmail.com</p>
                         <p >8056201341</p>
                     </div>
                 </div>

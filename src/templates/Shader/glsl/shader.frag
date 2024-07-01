@@ -3,6 +3,37 @@ uniform vec3 color;
 uniform vec3 iResolution;
 varying vec2 vUv;
 
+float PHI=1.61803398874989484820459;// Φ = Golden Ratio
+
+uint hash(uint x){
+  x+=(x<<10u);
+  x^=(x>>6u);
+  x+=(x<<3u);
+  x^=(x>>11u);
+  x+=(x<<15u);
+  return x;
+}
+
+// Compound versions of the hashing algorithm I whipped together.
+uint hash(uvec2 v){return hash(v.x^hash(v.y));}
+uint hash(uvec3 v){return hash(v.x^hash(v.y)^hash(v.z));}
+uint hash(uvec4 v){return hash(v.x^hash(v.y)^hash(v.z)^hash(v.w));}
+
+// Construct a float with half-open range [0:1] using low 23 bits.
+// All zeroes yields 0.0, all ones yields the next smallest representable value below 1.0.
+float floatConstruct(uint m){
+  const uint ieeeMantissa=0x007FFFFFu;// binary32 mantissa bitmask
+  const uint ieeeOne=0x3F800000u;// 1.0 in IEEE binary32
+  
+  m&=ieeeMantissa;// Keep only mantissa bits (fractional part)
+  m|=ieeeOne;// Add fractional part to 1.0
+  
+  float f=uintBitsToFloat(m);// Range [1:2]
+  return f-1.;// Range [0:1]
+}
+
+float random(vec2 v){return floatConstruct(hash(floatBitsToUint(v)));}
+
 float colormap_red(float x){
   if(x<0.){
     return 54./255.;
@@ -77,14 +108,15 @@ float noise(vec2 p){
   {
     float f=0.;
     
-    f+=.500000*noise(p+time*.5);p=mtx*p*2.02;
+    f+=.500000*noise(p+time*.2);p=mtx*p*2.02;
     f+=.031250*noise(p);p=mtx*p*2.01;
     f+=.250000*noise(p);p=mtx*p*2.03;
     f+=.125000*noise(p);p=mtx*p*2.01;
     f+=.062500*noise(p);p=mtx*p*2.04;
+    f+=random(p)*.02;
     f+=.015625*noise(p+sin(time*.2));
     
-    return f/1.4;
+    return f/1.2;
   }
   
   float pattern(in vec2 p)

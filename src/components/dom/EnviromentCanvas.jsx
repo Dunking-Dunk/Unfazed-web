@@ -3,8 +3,8 @@
 import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
 
-const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
-const HeroCanvas = dynamic(() => import('@/components/canvas/Hero'), {
+
+const Enviroment = dynamic(() => import('@/components/canvas/Enviroment'), {
     ssr: false
 })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
@@ -23,17 +23,15 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
     ),
 })
 
-
-const BackgroundCanva = ({ width }) => {
+const EnviromentCanvas = () => {
 
     return (
-        <View className='w-full h-full absolute -z-10 top-0 left-0 bottom-0 right-0'>
+        <View className='w-full h-screen absolute -z-10 top-0 left-0 bottom-0' >
             <Suspense fallback={null}>
-                <Common />
-                <HeroCanvas width={width} />
+                <Enviroment />
             </Suspense>
-        </View>
+        </View >
     )
 }
 
-export default BackgroundCanva
+export default EnviromentCanvas

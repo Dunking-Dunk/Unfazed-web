@@ -2,7 +2,6 @@
 
 import Image from "next/image"
 import { useRouter } from "next/navigation"
-
 import Button from "./Button"
 
 
@@ -17,7 +16,7 @@ const WorkCard = ({ work, cls }) => {
         <div className={`${cls} w-full lg:h-screen h-[80vh]  relative lg:rounded-xl overflow-hidden cursorMore`} onClick={handleOnClick}>
             < div className="w-full h-full relative" >
                 <Image src={require(`./../../../public/case/${work.cover}`)} className="w-full h-full object-cover absolute top-0 bottom-0 left-0 right-0" alt="Work Image" />
-                <div className="bg-[rgba(0,0,0,0.2)] w-full h-full absolute z-10">
+                <div className="bg-[rgba(0,0,0,0.3)] w-full h-full absolute pointer-events-none z-10">
 
                 </div>
             </div >

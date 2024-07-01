@@ -15,6 +15,20 @@ const Cursor = () => {
         let cursOver = false
         let cursOverDetail = false
 
+        gsap.to(textRef.current, {
+            scale: 0,
+        })
+
+        gsap.to(cursorRef.current, {
+            width: '1rem',
+            height: '1rem',
+        })
+
+        gsap.to(cursorOuterRef.current, {
+            borderWidth: '1px',
+        })
+
+
         const followCursor = contextSafe((e) => {
             gsap.to(cursorRef.current, {
                 top: `${e.clientY - (cursOverDetail ? 34 : cursOver ? 18 : 6)}}px`,
@@ -25,7 +39,7 @@ const Cursor = () => {
             gsap.to(cursorOuterRef.current, {
                 top: `${e.clientY - 22}px`,
                 left: `${e.clientX - 22}px`,
-                delay: 0.05,
+                delay: 0.01,
                 ease: 'power1.out'
             })
         })

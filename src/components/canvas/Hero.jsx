@@ -5,8 +5,9 @@ import { shaderMaterial, } from "@react-three/drei"
 import { extend, useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import fragmentShader from '../../templates/Shader/glsl/shader.frag'
+import useDeviceDetection from "@/templates/hooks/useDeviceDetection"
 
-const Hero = ({ props }) => {
+const Hero = (props) => {
     const materialRef = useRef()
     const geoRef = useRef()
     const { viewport } = useThree();
@@ -40,7 +41,7 @@ const Hero = ({ props }) => {
     return (
         <mesh
             {...props} position={[0, 0, -1]}>
-            <planeGeometry args={[viewport.width * 1.5, viewport.height * 1.5]} ref={geoRef} />
+            <planeGeometry args={[props?.width ? props?.width : 4, viewport.height * 1.5]} ref={geoRef} />
             <colorShiftMaterial ref={materialRef} />
         </mesh>
     )
