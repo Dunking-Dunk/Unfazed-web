@@ -6,8 +6,8 @@ const Contact = () => {
         <div className="lg:p-16 p-4 relative z-10">
             <div className="flex lg:flex-row flex-col items-center justify-between border-b-2 border-[rgba(255,255,255,0.3)] pb-24 pt-16">
                 <div className="lg:space-y-14 space-y-6">
-                    <h2 className="lg:text-9xl text-7xl font-medium">Let's Chat.</h2>
-                    <h5 className="lg:text-3xl text-xl">Unleashing brand potential through <br />creative design and innovation.</h5>
+                    <h2 className="font-medium lg:text-9xl text-7xl">Let's Chat.</h2>
+                    <h5 className="lg:text-3xl text-xl">Unleashing brand potential through<br />creative design and innovation.</h5>
                 </div>
                 <div className="lg:self-end mt-16">
                     <Button size={32} cln={'bg-white text-black'}>GET IN TOUCH</Button>

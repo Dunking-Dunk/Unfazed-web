@@ -73,7 +73,7 @@ const Service = () => {
             </View>
             < div className="flex flex-col lg:gap-12 gap-4" >
                 <h3 style={mono.style} className='md:text-8xl text-6xl text-[var(--primary-color)]'>Our Services</h3>
-                <p className='lg:text-2xl text-xl lg:w-2/3 w-full'>Our services are more than just solutions, they're opportunities to transform your digital presence and achieve your business objectives. We're here to make your digital dreams a reality.</p>
+                <p className="lg:text-2xl text-xl lg:w-2/3 w-full">Our services are more than just solutions, they're opportunities to transform your digital presence and achieve your business objectives. We're here to make your digital dreams a reality.</p>
             </div >
             <div className='mt-12 flex flex-col'>
                 <div className='flex lg:flex-row flex-col justify-between lg:p-24 py-4 gap-4 lg:border-b-2 border-b-0 border-[rgba(255,255,255,0.7)] z-10'
@@ -86,7 +86,7 @@ const Service = () => {
                     onMouseEnter={() => handleMouseEnter(1)} onMouseLeave={handleMouseLeave}
                 >
                     <h5 className='lg:text-6xl text-4xl font-medium'>Branding</h5>
-                    <p className='text-lg lg:w-1/3 opacity-80'>Elevate your brand identity with ArtistryLab. We understand the importance of a strong brand, and we'll help you establish a unique and unforgettable one.</p>
+                    <p className="text-lg lg:w-1/3 opacity-80">Elevate your brand identity with ArtistryLab. We understand the importance of a strong brand, and we'll help you establish a unique and unforgettable one.</p>
                 </div>
                 <div className='flex lg:flex-row flex-col justify-between lg:p-24 py-4 gap-4 lg:border-b-2 border-b-0 border-[rgba(255,255,255,0.7)] z-10'
                     onMouseEnter={() => handleMouseEnter(2)} onMouseLeave={handleMouseLeave}
