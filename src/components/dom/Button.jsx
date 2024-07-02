@@ -5,7 +5,8 @@ import gsap from "gsap"
 import { useRef } from "react"
 import { FaArrowRight } from "react-icons/fa";
 
-const Button = ({ children, size = 12, onClick = () => {
+const Button = ({ children, size = 12, onClick = (e) => {
+    e.preventDefault()
     window.location.href = "mailto:studiounfazed@gmail.com";
 }, Icon = (cl) => <FaArrowRight size={size} className={cl} />, cln }) => {
     const btnRef = useRef()

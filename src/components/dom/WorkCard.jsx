@@ -24,7 +24,7 @@ const WorkCard = ({ work, cls }) => {
                 <div className="lg:w-1/2 w-full flex flex-col lg:items-start space-y-6 ">
                     <h3 className="text-start text-5xl font-medium ">{work.title}</h3>
                     <p className="text-xl text-start lg:block hidden">{work.description.slice(0, 300)}</p>
-                    <Button size={26} cln={'lg:hidden'}>Veiw Detail</Button>
+                    <Button size={26} cln={'lg:hidden'} onClick={handleOnClick}>Veiw Detail</Button>
                 </div>
                 <div className="lg:w-1/2 flex-wrap gap-4 h-full lg:flex hidden">
                     {work.category.map((category, categoryIndex) => <div key={categoryIndex} className="px-6 py-2 text-lg bg-white text-[var(--black-color)] rounded-3xl bg-opacity-50 font-medium">
